@@ -1,0 +1,20 @@
+10.19.16
+player will use the database list to rearrange the playlist but a side affect is that a song that has just played will end up back at the top after checking the db
+
+no changes to createlist or any of the prototype files, i did mess around with dododo player and index pages, player calles to update playlist at the end of each song (doesnt fix the issue)
+and i turned off the voting cooldown check.
+
+mqsql -h hostaddress -u databaseuser -p
+then enter password
+
+11.10.16
+dididi has the latest changes ive tried, no changes made to prototype files (createList, listSubmitted, updateVoteList)
+- changes I made
+    - section in dididi/player/getPollResults() that stores incoming ordered list of votes and checks previous stored list to see if there have been any changes in voting
+      so far it only prints out console report but i want to make it to so it will put the newer different song into the slot that its been voted into
+    - dididi/player/putSongIntoSlot() is the function that will use the div id and index put the song into the slot
+        - i want the funtion to use something like playListDiv.appendChild(div) to put the list back in the order that it is in currently but sneak in the new song at the position that its been given
+            - use listChildrenDiv (its ordered the same way as the divs are in the playlist) to re-append the list but have a condition that when the index of the for loop is at the index of the incoming song append the new song then append the song that was in the list from listChildrenDiv.
+- will probably end up getting rid of the function that wasnt working that re-orders the playlists (updatePlayList())
+- have to delete startReadingVotes().
+    
