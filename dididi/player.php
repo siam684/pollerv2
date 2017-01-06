@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 
 
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>
 	<title>dididi</title>
 
 
@@ -28,7 +28,7 @@
 
 	<link rel='stylesheet' href='../votePage.css'>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 
 	<style>
 		
@@ -402,7 +402,7 @@
 				zero = '';
 			}
 
-			return minutes + ":" + zero + seconds;
+			return minutes + ':' + zero + seconds;
 		}
 
 		function sendCurrentSong() {
@@ -410,15 +410,15 @@
 
 			if (currentlyPlayingDiv) {
 				var currentSong = currentlyPlayingDiv.querySelector('#songName').innerHTML;
-				$.post("../SongDuration.php", {
-						functionName: "setValue",
+				$.post('../SongDuration.php', {
+						functionName: 'setValue',
 						pageName: tableName,
 						songName: currentSong.replace('Now Playing: ', ''),
 						startTime: startTimeValue,
 						songDuration: player.duration - player.currentTime
 					},
 					function(data, status) {
-						//alert(status+ " "+data);
+						//alert(status+ ' '+data);
 					});
 			}
 		}
@@ -523,8 +523,8 @@
 
 					//check if incoming list has changed
 					//console.log('length of tracker array: '+pollResultsTrackerArray.length); 
-					//pollResultsTrackerArray.forEach(function(value, index){'from tracker array: '+console.log(index+": "+value)});
-					//pollResults.forEach(function(value, index){'from results array: '+console.log(index+": "+value)});
+					//pollResultsTrackerArray.forEach(function(value, index){'from tracker array: '+console.log(index+': '+value)});
+					//pollResults.forEach(function(value, index){'from results array: '+console.log(index+': '+value)});
 
 					pollResults.forEach(function(item, index) {
 
@@ -533,7 +533,7 @@
 						if (item != pollResultsTrackerArray[index]) {
 							console.log(hasBeenVotedUp(item, index));
 							if (hasBeenVotedUp(item, index)) {
-								console.log(item + "has gone to position " + index);
+								console.log(item + 'has gone to position ' + index);
 								putSongInSlot(item, index);
 							}
 
@@ -597,14 +597,14 @@
 			});
 
 			playList.forEach(function(songDiv, index) {
-				console.log("after deleteing " + index + ": " + songDiv.id);
+				console.log('after deleteing ' + index + ': ' + songDiv.id);
 			});
 
 
 			playList.splice(incomingIndex, 0, document.getElementById(incomingDivId));
 
 			playList.forEach(function(songDiv, index) {
-				console.log("after inserting " + index + ": " + songDiv.id);
+				console.log('after inserting ' + index + ': ' + songDiv.id);
 			});
 
 			playList.forEach(function(songDiv, playlistIndex) {
@@ -613,7 +613,7 @@
 				//if(playlistIndex==incomingIndex) 
 				//{
 				//document.getElementById(incomingDivId).querySelector('#songName').innerHTML = document.getElementById(incomingDivId).querySelector('#songName').innerHTML + ' moved';
-				//alert("puting " + songDiv.id + " in index " + playlistIndex); 
+				//alert('puting ' + songDiv.id + ' in index ' + playlistIndex); 
 				//playListDiv.appendChild(document.getElementById(incomingDivId));
 				playListDiv.appendChild(songDiv);
 
@@ -1039,7 +1039,7 @@
 					<div class='col-lg-1'></div>		
 				</div>		
 		
-				<div class='row' style="margin-bottom:10px">
+				<div class='row' style='margin-bottom:10px'>
 				 <div class='col-lg-1'></div>
 					<div class='col-lg-10 boxshadowed' style='background-color:white;padding-bottom:10px'>
 						<div class='row nospacing' style='padding-left:40px'>
@@ -1062,7 +1062,7 @@
 										</table>
 									</div>
 									<div class='col-lg-4 nospacing verticalCenterDiv' style='width:70%;padding-top:2px;margin-left:3%;'>
-										<input id='seekBar' type="range" id="seek" value="0" max="" class='nospacing' />
+										<input id='seekBar' type='range' id='seek' value='0' max='' class='nospacing' />
 									</div>
 									<div class='col-lg-4 nospacing verticalCenterDiv' style='width:14%;'>
 										<table class='nospacing' style='width:100%'>
@@ -1071,7 +1071,7 @@
 													<img id='muteUnmuteImage' src='https://maxcdn.icons8.com/iOS7/PNG/25/Mobile/speaker_filled-25.png' style='width:25px;height:25px;' />
 												</td>
 												<td>
-													<input id='volumeBar' type="range" id="seek" value="30" max="100" />
+													<input id='volumeBar' type='range' id='seek' value='30' max='100' />
 												</td>
 											</tr>
 										</table>
@@ -1085,7 +1085,7 @@
 								<td class='butonTableCell'><input class='butt' type='button' value='Next on playlist' onclick='loadNextSong()' /></td>
 								<td class='butonTableCell'><input class='butt' id='publish' type='button' value='publish' /></td>
 								<td class='butonTableCell'><input class='' id='addSongsButton' type='file' value='Add Music' multiple='multiple' onchange='handleFileSelect(this.files)' /></td>
-								<td class='butonTableCell'><label for="addSongsButton" class='butt' style='margin-bottom:0'>Add Music</label></td>
+								<td class='butonTableCell'><label for='addSongsButton' class='butt' style='margin-bottom:0'>Add Music</label></td>
 							</tr>
 						</table>
 						
@@ -1100,7 +1100,7 @@
 				<div class='container nospacing'>
 					<div class='row nospacing'>
 						<div id='drop_zone' class='dropzoneflat'>
-							<div id='dropzonemsg' style="opacity:.7;padding-top:30px;height:100%">Drop MP3 files here to add to playlist</div>
+							<div id='dropzonemsg' style='opacity:.7;padding-top:30px;height:100%'>Drop MP3 files here to add to playlist</div>
 						</div><br>
 						
 					</div>
