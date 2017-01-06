@@ -1,0 +1,87 @@
+@import 'https://fonts.googleapis.com/css?family=Bungee|Open+Sans:300|Source+Sans+Pro:600';
+@import 'https://fonts.googleapis.com/css?family=Lekton';				
+
+/**********************************************sortable component css start******************************************************/
+
+			
+
+		
+
+
+/*******************************************************sortable component css end*************************************************/
+
+
+@media all screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px)
+{
+	.left{
+	width:5%;
+	}
+
+	.center{
+		width:90%;
+		padding:0;
+	}
+	
+	.right{
+		width:5%;
+	}
+	
+	
+	.card
+	{
+		
+		font-family: Source Sans Pro, sans-serif;
+		background-color:white;
+		height:auto;
+		width:90%;
+		position: relative;
+		left: 50%;
+		margin: 10px 5% 13px -47.1%;
+		padding: auto ;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	
+	.highlight 
+	{
+		height:30px;
+		width:90%;
+		position: relative;
+		left: 50%;
+		margin: 10px 10% 13px -47.1%;
+		padding:10px 10px 15px 10px ;
+	    font-weight: bold;
+	    font-size: 45px;
+	    background-color: lightblue;
+	}
+	
+	#songListContainer .ui-selected 
+	{
+		position: relative;
+		left: 50%;
+		margin: 10px 10% 13px -47.1%;
+		padding:10px 10px 15px 10px ;
+	}
+	
+	#songListContainer .ui-selecting 
+	{	
+		background-color: #ccccff;
+		color: white;
+		background-image: none;
+		position: relative;
+		left: 50%;
+		margin: 10px 10% 13px -47.1%;
+		padding:10px 10px 15px 10px ;
+	}
+	
+	.ui-draggable-helper
+	{
+		
+		margin-left:-23.1%;
+	}
+
+}
+		
+
+		
