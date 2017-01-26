@@ -93,11 +93,12 @@
 		}
 		
 		html {
-			height: 100%;
+    	background-repeat: repeat;
 		}
 		
 		body {
-			
+			background-image: url("../img/bg_white.png");
+    	background-repeat: repeat;
 			height: 100%;
 		}
 		
@@ -267,6 +268,7 @@
 	<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 	<script src='../coder.js'></script>
+	<script src='../db_functions.js'></script>
 	<script type='text/javascript'>
 		var countOfSongDivs = 0;
 		var tempduration;
@@ -275,6 +277,14 @@
 		var arrayOfsongs = new Array();
 		var playListDivID = 'drop_zone';
 		var playListDiv;
+		var pwFeild; 
+		var loginButton; 
+		var loginContainer; 
+		var dropZoneContainer; 
+		var playerContainer;
+		var pwIncorrectDiv;
+		
+		var adminPw;
 
 		var lastColumnAdded;
 		var tableName = 'dididi';
@@ -305,7 +315,7 @@
 			playListDiv = document.getElementById(playListDivID);
 			//alert(voterDiv.id);
 			//var player = document.getElementById('player');
-
+			getPw(tableName, 'admin',setPw);
 			player = document.getElementById('player');
 			playPuaseImage = document.getElementById('playPuaseImage');
 			playPauseContainer = document.getElementById('playPauseContainer');
@@ -313,10 +323,17 @@
 			durationSpan = document.getElementById('durationSpan');
 			seekBar = document.getElementById('seekBar');
 			muteUnmuteContainer = document.getElementById('muteUnmuteContainer');
-			muteUnmuteImage = document.getElementById('muteUnmuteImage');
+			muteUnmuteImage = document.getElementById('muteUnmuteImage');			 
+			pwFeild = document.getElementById('pwFeild');
+			loginButton = document.getElementById('loginButton');
+			loginContainer = document.getElementById('loginContainer');
+			dropZoneContainer = document.getElementById('dropZoneContainer');
+			playerContainer = document.getElementById('playerContainer');
+			pwIncorrectDiv = document.getElementById('pwIncorrect');
 			player.volume = .3;
 
-
+			playerContainer.style.display = 'none';
+			dropZoneContainer.style.display = 'none';
 
 
 			$('#player').on('ended', function() {
@@ -392,6 +409,38 @@
 			getPollResults();
 
 		});
+		
+		function setPw(pw)
+		{
+			adminPw = pw;
+			console.log(pw);
+		}
+		
+		
+		function showList()
+			{				
+				if (pwFeild.value == adminPw)
+				{
+					//show the two divs
+					playerContainer.style.display = 'block';
+					dropZoneContainer.style.display = 'block';
+					loginContainer.style.display = 'none';
+
+				}
+				else
+				{	
+					//show wrong pw error
+					pwIncorrectDiv.style.display = 'block';
+				}
+			}
+
+		function enterKeyPressed()
+		{
+			if (event.keyCode == 13) loginButton.click();
+		}
+		
+		
+		
 
 		function getFormattedTime(sec) {
 			minutes = Math.floor((sec % 3600) / 60);
@@ -1039,7 +1088,7 @@
 					<div class='col-lg-1'></div>		
 				</div>		
 		
-				<div class='row' style='margin-bottom:10px'>
+				<div class='row' style='margin-bottom:10px' id='playerContainer'>
 				 <div class='col-lg-1'></div>
 					<div class='col-lg-10 boxshadowed' style='background-color:white;padding-bottom:10px'>
 						<div class='row nospacing' style='padding-left:40px'>
@@ -1093,8 +1142,27 @@
 					</div>
 					<div class='col-lg-1'></div>		
 			</div>
+		
+		<div class='row'  id='loginContainer'>
+			<div class='col-lg-1'></div>
+			<div class='col-lg-10 midcontainer boxshadowed'>
+				<div class='container nospacing'>
+					<div class='row nospacing'>
+						
+						<div style='padding-bottom:20px'>	 <!--style='display: none;'-->				
+							<span style='text-align:left; font-family: Source Sans Pro, sans-serif;color:#E7522D'>Playlist Admin/DJ Password:</span><br>
+							<input type='password' id='pwFeild' class='customText' onkeydown='enterKeyPressed()'/>
+							<input id='loginButton' type='button' value='Login' class='longButton' onclick='showList()' style='margin-top:10px' />
+						</div>
+						<div id = 'pwIncorrect' class='msg' style='margin-bottom:10px'>Incorrect Password</div>
+					</div>
+				</div>
+			</div>
+			<div class='col-lg-1'></div>
+		</div>
+		
 				
-		<div class='row'>
+		<div class='row' id='dropZoneContainer'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-10 midcontainer boxshadowed'>
 				<div class='container nospacing'>
