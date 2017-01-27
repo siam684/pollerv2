@@ -335,7 +335,6 @@ fwrite($adminPage,"
 		var pollResults;
 		var intervalCallToGetPollList;
 		var listOfSongNames = new Array();
-		var firstInsertDone = false;
 		var pollResultsTrackerArray = new Array(0);
 		var listDidNotChange;
 		var changedIndex;
@@ -715,8 +714,14 @@ fwrite($adminPage,"
 			dz = document.getElementById('drop_zone');
 			$(dz).removeClass('dropzoneflat');
 			$(dz).addClass('dropzone');
-			dz.removeChild(dz.querySelector('#dropzonemsg'));
-
+			
+			var dropzonemsg = dz.querySelector('#dropzonemsg');
+			
+			if(dropzonemsg)
+			{
+				dz.removeChild(dropzonemsg);
+			}
+			
 			var files;
 
 			if (evt instanceof FileList) 
@@ -731,7 +736,6 @@ fwrite($adminPage,"
 			}
 
 			var addCulumnSql = '';
-			var firstLine = true;
 			for (var i = 0, f; f = files[i]; i++) 
       {
 				console.log(f.type);
@@ -775,11 +779,10 @@ fwrite($adminPage,"
         {
 					var incomingCol = tempId;
 					var colon = '';
-					if (firstInsertDone && firstLine) {
-						firstLine = false;
-					} else {
-						colon = ',';
-					}
+					if (i!=0) 										
+					{															
+						colon = ',';								
+					}															
 					addCulumnSql = addCulumnSql + colon + ' ADD `' + countOfSongDivs + '` INT after `' + (countOfSongDivs - 1) + '`';
 					lastColumnAdded = incomingCol;
 				}
