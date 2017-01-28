@@ -43,15 +43,10 @@ fwrite($htaccess,'
 fwrite($adminPage,"
 		
 <!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
-
-
 <html>
-
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>
 	<title>".$filename."</title>
-
-
 	<template id='songHolderTemplate'>
 	<div id='playlistSongHolder' onclick='alertIt(event)' class='songHolder'>
 		<table style='width:100%;  vertical-align:top;'>
@@ -63,17 +58,14 @@ fwrite($adminPage,"
 		<source id='songSrc' src='' type='audio/mp3'/>
 	</div>
 </template>
-
 	<template id='voterSongListTemplate'>
 	<div style='height:50px;background-color:#ff4d4d;display:flex;justify-content:center;align-items:center;margin:10px;'>
 		<span id='songName'></span>
 	</div>
 </template>
-
 	<link rel='stylesheet' href='../votePage.css'>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 	<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
-
 	<style>
 		
 		#addSongsButton {
@@ -118,7 +110,6 @@ fwrite($adminPage,"
 			position:relative;
 			top:1px;
 		}
-
 		.boxshadowed
 		{
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -306,7 +297,6 @@ fwrite($adminPage,"
 			margin-bottom: 22px;
 		}
 	</style>
-
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js' type='text/javascript'></script>
 	<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
@@ -329,7 +319,6 @@ fwrite($adminPage,"
 		var pwIncorrectDiv;
 		
 		var adminPw;
-
 		var lastColumnAdded;
 		var tableName = '".$tableName."';
 		var pollResults;
@@ -339,15 +328,12 @@ fwrite($adminPage,"
 		var listDidNotChange;
 		var changedIndex;
 		var doneUpdateingPerSong = false;
-
 		var player;
 		var playButtonImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Media_Controls/play_filled-25.png';
 		var pauseButtonImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Media_Controls/pause_filled-25.png';
 		var mutedImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Media_Controls/mute_filled-25.png';
 		var unmutedImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Mobile/speaker_filled-25.png';
 		var zero;
-
-
 		$('document').ready(function() {
 			getPw(tableName, 'admin',setPw);
 			var dropZone = document.getElementById('drop_zone');
@@ -357,7 +343,6 @@ fwrite($adminPage,"
 			dropZone.addEventListener('dragover', handleDragOver, false);
 			dropZone.addEventListener('drop', handleFileSelect, false);
 			playListDiv = document.getElementById(playListDivID);
-
 			player = document.getElementById('player');
 			playPuaseImage = document.getElementById('playPuaseImage');
 			playPauseContainer = document.getElementById('playPauseContainer');
@@ -374,54 +359,41 @@ fwrite($adminPage,"
 			playerContainer = document.getElementById('playerContainer');
 			pwIncorrectDiv = document.getElementById('pwIncorrect');
 			player.volume = .3;
-
 			playerContainer.style.display = 'none';
 			dropZoneContainer.style.display = 'none';
-
 			$('#player').on('ended', function() {
 				loadNextSong();
 				doneUpdateingPerSong = false;
 			});
-
 			$('#player').on('timeupdate', function() {
 				console.log(player.duration - player.currentTime);
-
 				var remainingTime = player.duration - player.currentTime;
-
 				if ((remainingTime < 30) && !doneUpdateingPerSong) {
 					getPollResults();
 					doneUpdateingPerSong = true;
 				}
 			});
-
 			$('#player').on('loadeddata', function() {
 				sendCurrentSong();
 			});
-
 			$('#player').on('play', function() {
 				sendCurrentSong();
 			});
-
-
 			$(player).on('loadedmetadata', function() {
 				currentTimeSpan.innerHTML = getFormattedTime(player.currentTime);
 				durationSpan.innerHTML = getFormattedTime(player.duration);
 				seekBar.max = player.duration;
 			});
-
 			$(player).on('timeupdate', function() {
 				currentTimeSpan.innerHTML = getFormattedTime(player.currentTime);
 				seekBar.value = player.currentTime;
 			});
-
 			$(seekBar).on('mouseup', function() {
 				player.currentTime = seekBar.value;
 			});
-
 			$(volumeBar).on('mouseup', function() {
 				player.volume = volumeBar.value / 100;
 			});
-
 			$(playPauseContainer).on('click', function() {
 				if (player.paused) {
 					playPuaseImage.src = pauseButtonImage;
@@ -431,7 +403,6 @@ fwrite($adminPage,"
 					player.pause();
 				}
 			});
-
 			$(muteUnmuteContainer).on('click', function() {
 				if (player.muted) {
 					muteUnmuteImage.src = unmutedImage;
@@ -457,7 +428,6 @@ fwrite($adminPage,"
 					playerContainer.style.display = 'block';
 					dropZoneContainer.style.display = 'block';
 					loginContainer.style.display = 'none';
-
 				}
 				else
 				{	
@@ -465,13 +435,11 @@ fwrite($adminPage,"
 					pwIncorrectDiv.style.display = 'block';
 				}
 			}
-
 		function enterKeyPressed()
 		{
 			if (event.keyCode == 13) loginButton.click();
 		}
 		
-
 		function getFormattedTime(sec) 
     {
 			minutes = Math.floor((sec % 3600) / 60);
@@ -486,11 +454,9 @@ fwrite($adminPage,"
 			}
 			return minutes + ':' + zero + seconds;
 		}
-
 		function sendCurrentSong() 
     {
 			var startTimeValue = Date.now() / 1000.0;
-
 			if (currentlyPlayingDiv) 
       {
 				var currentSong = currentlyPlayingDiv.querySelector('#songName').innerHTML;
@@ -506,7 +472,6 @@ fwrite($adminPage,"
 					});
 			}
 		}
-
 		function Song(name, src, dur, divId) 
     {
 			this.name = name;
@@ -514,14 +479,11 @@ fwrite($adminPage,"
 			this.dur = dur;
 			this.divId = divId;
 		}
-
 		function tempDivIDObject(id, pos) 
     {
 			this.id = id;
 			this.pos = pos;
 		}
-
-
 		function getPollResults() 
     {
 			var hr = new XMLHttpRequest();
@@ -572,14 +534,12 @@ fwrite($adminPage,"
       {
 				if (trackerSongId == incomingSongId) {
 					if (incomingSongIndex < trackerIndex) {
-
 						isVotedUp = true;
 					}
 				}
 			});
 			return isVotedUp;
 		}
-
 		function putSongInSlot(incomingDivId, incomingIndex) 
     {
 			incomingIndex += 1;
@@ -588,7 +548,6 @@ fwrite($adminPage,"
 			add the incoming song first
 			*/
 			var playList = listChildrenDivs(playListDiv);
-
 			playList.forEach(function(songDiv, playlistIndex) 
       {
 				if (songDiv.id == incomingDivId) 
@@ -596,15 +555,12 @@ fwrite($adminPage,"
 					playList.splice(playlistIndex, 1);
 				}
 			});
-
 			playList.splice(incomingIndex, 0, document.getElementById(incomingDivId));
 			playList.forEach(function(songDiv, playlistIndex) 
       {
 				playListDiv.appendChild(songDiv);
 			});
 		}
-
-
 		function updatePlayList() {
 			//remove all divs from playlist except for the now playing one
 			//add divs back in order of pollresults except for now playinging
@@ -615,15 +571,11 @@ fwrite($adminPage,"
 				}
 			}
 		}
-
-
 		function startReadingVotes() 
     {
 			alert('starting interval calls');
 			intervalCallToGetPollList = setInterval(getPollResults, 10000);
 		}
-
-
 		function updateVoterList() 
     {
 			var list = listChildrenDivs(playListDiv);
@@ -632,14 +584,12 @@ fwrite($adminPage,"
 			for (var i = 0; i < list.length; i++) {
 				data1.push(list[i].id);
 			}
-
 			$.ajax({
 				type: 'POST',
 				url: '../updateVoteList.php',
 				data: 'tableName=".$tableName."&pageName=' + '".$filename."&' + 'songName=' + JSON.stringify(data1)
 			});
 		}
-
 		function addColumns(sqlString) 
     {
 			var hr = new XMLHttpRequest();
@@ -656,7 +606,6 @@ fwrite($adminPage,"
 			}
 			hr.send(postValues);		
 		}
-
     	/*
 		
 			for first song added to list where divcount = 0
@@ -699,7 +648,6 @@ fwrite($adminPage,"
 		function getObjectOfTemplate(templateId) {
 			var t = document.querySelector('#' + templateId);
 			var templateObject;
-
 			try {
 				templateObject = document.importNode(t.content, true);
 			} catch (err) {
@@ -708,7 +656,6 @@ fwrite($adminPage,"
 			}
 			return templateObject;
 		}
-
 		function handleFileSelect(evt) 
     {
 			dz = document.getElementById('drop_zone');
@@ -723,7 +670,6 @@ fwrite($adminPage,"
 			}
 			
 			var files;
-
 			if (evt instanceof FileList) 
       {
 				files = evt;
@@ -734,7 +680,6 @@ fwrite($adminPage,"
 				evt.preventDefault();
 				files = evt.dataTransfer.files;
 			}
-
 			var addCulumnSql = '';
 			for (var i = 0, f; f = files[i]; i++) 
       {
@@ -743,19 +688,16 @@ fwrite($adminPage,"
 				if (f.type == 'audio/mp3' | f.type == 'audio/mpeg') {
 					acceptableType = true;
 				}
-
 				if (!acceptableType) 
         {
 					alert(f.name + ' is not a mp3 audio file.');
 					continue;
 				}
-
 				if (f.name.length > 128) 
         {
 					alert(f.name + ' is greater than 128 characters.');
 					continue;
 				}
-
 				var blobsrc = URL.createObjectURL(f);
 				var tempId = encodeIt(f.name.replace('.mp3', ''));
 				var tempSongDiv = getObjectOfTemplate('songHolderTemplate');
@@ -792,9 +734,6 @@ fwrite($adminPage,"
 			pollResultsTrackerArray = listOfSongNames.slice(0);
 			addColumns(addCulumnSql);
 		}
-
-
-
 		function updateDuration(name, src, divname) 
     {
 			var tempAudio = new Audio();
@@ -805,7 +744,6 @@ fwrite($adminPage,"
 				document.getElementById(divname).querySelector('#songDuration').innerHTML = ' ' + sToMS(tempduration);
       });
 		}
-
 		function sToMS(s) 
     {
 			var minutes = parseInt(s / 60);
@@ -815,20 +753,17 @@ fwrite($adminPage,"
 			}
 			return minutes + ':' + seconds;
 		}
-
 		function handleDragOver(evt) 
     {
 			evt.stopPropagation();
 			evt.preventDefault();
 			evt.dataTransfer.dropEffect = 'copy';
 		}
-
 		function alertIt(event) {
       alert(getNameSpanOf(event.target.parentElement).innerHTML);
 			alert(getDurationSpan(event.target.parentElement).innerHTML);
 			alert(getSrc(event.target.parentElement));
 		}
-
 		function setNowPlaying(divParent) 
     {
 			var songName = divParent.querySelector('#songName').innerHTML;
@@ -836,14 +771,12 @@ fwrite($adminPage,"
 			$(divParent).addClass('nowplaying');
       currentlyPlayingDiv = divParent;
 		}
-
 		function clearNowPlaying() 
     {
 			var songName = currentlyPlayingDiv.querySelector('#songName').innerHTML;
 			currentlyPlayingDiv.querySelector('#songName').innerHTML = songName.replace('Now Playing: ', '');
 			$(currentlyPlayingDiv).removeClass('nowplaying');
     }
-
 		function loadNextSong() 
     {
 			var listDiv = document.getElementById(playListDivID);
@@ -857,7 +790,6 @@ fwrite($adminPage,"
 			audio.play();
 			setNowPlaying(listOfDivs[0]);
 		}
-
 		function listChildrenDivs(divContainer) 
     {
 			var listOfDivs = new Array();
@@ -872,33 +804,24 @@ fwrite($adminPage,"
 			}
 		  return listOfDivs;
 		}
-
 		function getNameSpanOf(divcontainer) {
 			return divcontainer.querySelector('#songName');
 		}
-
 		function getDurationSpan(divcontainer) {
 			return divcontainer.querySelector('#songDuration');
 		}
-
 		function getSrc(divcontainer) {
 			return divcontainer.querySelector('#songSrc').src;
 		}
-
-
 		function insertTop(topNode, bottomNode) {
 			$(topNode).insertBefore(bottomNode);
 		}
-
 		function insertBottom(topNode, bottomNode) {
 			$(topNode).insertAfter(bottomNode);
 		}
 	</script>
-
 </head>
-
 <body>
-
 	<div class='container' style='padding-top:10px;background-color: rgba(231, 82, 45, 1);height:100%;'>
 		
 				<div class='row'>
@@ -1000,7 +923,6 @@ fwrite($adminPage,"
 	</div>
 	
 </body>
-
 </html>
 		
 		
@@ -1009,7 +931,6 @@ fclose($adminPage);
 fclose($voterPage);
 fclose($adminPageLog);
 fclose($htaccess);
-
 function encodeIt($string)
 {
 	/*
