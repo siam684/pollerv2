@@ -149,13 +149,14 @@ fwrite($adminPage,"
 			vertical-align: middle;
 			font-family: Oswald, sans-serif;
 			width: 100%;
-			height: 100px;
+			min-height: 100px;
 			border-color: rgb(231, 82, 45);
 			border-style: dotted;
 			background-color: #5BC0DE;
 			color: white;
 			font-size: 20px;
 			box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.0), 0 0px 0px 0 rgba(0, 0, 0, 0.0);
+			margin-bottom:10px;
 		}
 		
 		.songHolder {
@@ -300,8 +301,8 @@ fwrite($adminPage,"
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js' type='text/javascript'></script>
 	<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-	<script src='../coder.js'></script>
-	<script src='../db_functions.js'></script>
+	<script src='../coder.js?1500'></script>
+	<script src='../db_functions.js?1500'></script>
 	<script type='text/javascript'>
     
 		var countOfSongDivs = 0;
@@ -334,7 +335,11 @@ fwrite($adminPage,"
 		var mutedImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Media_Controls/mute_filled-25.png';
 		var unmutedImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Mobile/speaker_filled-25.png';
 		var zero;
+		
+		var websiteAddress = 'www.ASiamChowdhury.com/poller';
 		$('document').ready(function() {
+			document.getElementById('shareText').innerHTML = 'Share the link '+websiteAddress+'/'+tableName+' with people you want voting for the next song to play.';
+			
 			getPw(tableName, 'admin',setPw);
 			var dropZone = document.getElementById('drop_zone');
 			document.getElementById('publish').addEventListener('click', function() {
@@ -362,6 +367,7 @@ fwrite($adminPage,"
 			playerContainer.style.display = 'none';
 			dropZoneContainer.style.display = 'none';
 			$('#player').on('ended', function() {
+				clearRecords(tableName,function(requestResult){console.log(requestResult)});
 				loadNextSong();
 				doneUpdateingPerSong = false;
 			});
@@ -412,6 +418,11 @@ fwrite($adminPage,"
 					player.muted = true;
 				}
 			});
+			
+			$('#helpSpan').on('click',function(){
+				$(dropzonemsg).toggle();
+			});
+			
       getPollResults();
 		});
 		
@@ -595,6 +606,7 @@ fwrite($adminPage,"
 			var hr = new XMLHttpRequest();
 			var url = '../db_functions.php';
 			hr.open('POST', url, true);
+
 			var postValues = 'functionName=db_addColumn&tableName=' + tableName + '&columns=' + sqlString;
 			hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			hr.onreadystatechange = function() 
@@ -666,7 +678,8 @@ fwrite($adminPage,"
 			
 			if(dropzonemsg)
 			{
-				dz.removeChild(dropzonemsg);
+				$(dropzonemsg).hide();
+				$(dropzonemsg).addClass('dropzoneflat');
 			}
 			
 			var files;
@@ -722,9 +735,10 @@ fwrite($adminPage,"
 					var incomingCol = tempId;
 					var colon = '';
 					if (i!=0) 										
-					{															
-						colon = ',';								
-					}															
+					{
+						colon = ',';
+					}
+					
 					addCulumnSql = addCulumnSql + colon + ' ADD `' + countOfSongDivs + '` INT after `' + (countOfSongDivs - 1) + '`';
 					lastColumnAdded = incomingCol;
 				}
@@ -908,24 +922,34 @@ fwrite($adminPage,"
 		<div class='row'  id='dropZoneContainer'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-10 midcontainer boxshadowed'>
+				<div style='text-align:right'>
+					<span id='helpSpan' class='inputTextTitle'>Help?</span>
+				</div>
 				<div class='container nospacing'>
 					<div class='row nospacing'>
 						<div id='drop_zone' class='dropzoneflat'>
-							<div id='dropzonemsg' style='opacity:.7;padding-top:30px;height:100%'>Drop MP3 files here to add to playlist</div>
+							<div id='dropzonemsg' style='opacity:.7;padding-top:30px;height:100%'>
+								<div style='margin:0 auto;width:80%;text-align:left; line-height: 200%;'>
+									<ol>
+										<li>Drop MP3 files here to add to playlist.</li>
+										<li>Press publish when your done adding music to setup your voter page.</li>
+										<li id='shareText'>Share the link linkgoeshere with people you want voting for the next song to play.</li>
+									</ol>
+								</div>
+							</div>
 						</div><br>
-						
 					</div>
 				</div>
 			</div>
 			<div class='col-lg-1'></div>
 		</div>
-		
 	</div>
 	
 </body>
 </html>
 		
 		
+
 		");
 fclose($adminPage);
 fclose($voterPage);
