@@ -468,12 +468,20 @@ fwrite($adminPage,"
 		function sendCurrentSong() 
     {
 			var startTimeValue = Date.now() / 1000.0;
+			var pageNameVar = tableName;
+				
+			while(pageNameVar.includes('_'))
+			{
+				pageNameVar = pageNameVar.replace('_',' ');
+				console.log(pageNameVar);
+			}
+			
 			if (currentlyPlayingDiv) 
       {
 				var currentSong = currentlyPlayingDiv.querySelector('#songName').innerHTML;
 				$.post('../SongDuration.php', {
 						functionName: 'setValue',
-						pageName: tableName,
+						pageName: pageNameVar,
 						songName: currentSong.replace('Now Playing: ', ''),
 						startTime: startTimeValue,
 						songDuration: player.duration - player.currentTime
@@ -593,6 +601,10 @@ fwrite($adminPage,"
 			var data1 = new Array();
       
 			for (var i = 0; i < list.length; i++) {
+				if(list[i].id=='dropzonemsg')
+				{
+					continue;
+				}
 				data1.push(list[i].id);
 			}
 			$.ajax({

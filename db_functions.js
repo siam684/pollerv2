@@ -46,35 +46,35 @@ function insertToDB(columns, values, tableName, callback)
 function listChildrenDivs(divContainer)
 {
 	 //alert('in list div');
-	 console.log('accepting div: '+divContainer + ' ' + divContainer.id);
-	 console.log('in listChildrenDivs() length of list: '+ divContainer.childNodes.length);
+	 //console.log('accepting div: '+divContainer + ' ' + divContainer.id);
+	 // console.log('in listChildrenDivs() length of list: '+ divContainer.childNodes.length);
 	 var listOfDivs = new Array();
-	 console.log('created new list array');
+	 //console.log('created new list array');
 	 
 	 var children = divContainer.childNodes;
-	 console.log('grabbed: children divs of list div');
+	 //console.log('grabbed: children divs of list div');
 	 
 	 for(var i =0; i<children.length;i++)
 	 {
 	 	var childTag = children[i].tagName;
-	 	console.log('in listSOngsDiv for loop, child tag: ' + childTag);
+	 	//console.log('in listSOngsDiv for loop, child tag: ' + childTag);
 		if(childTag!==undefined&&childTag==('DIV'))
 		{
 			//console.log(children[i].id);
 			listOfDivs.push(children[i]);
-			console.log('add to list array: ' + children[i].id);
+			//console.log('add to list array: ' + children[i].id);
 		}
 	 }
 	 //console.log('length of listofdivs: '+listOfDivs.length);
 	 //insertBottom(listOfDivs[0],listOfDivs[4]);
 	 //insertTop(listOfDivs[0],listOfDivs[4]);
-	 console.log('______________________________________________________________');
-	 for(var i =0; i<listOfDivs.length;i++)
-	 {
-		 console.log('contents of index: '+ i);
-		 console.log(listOfDivs[i].id);
+	// console.log('______________________________________________________________');
+	 //for(var i =0; i<listOfDivs.length;i++)
+	 //{
+		 //console.log('contents of index: '+ i);
+		 //console.log(listOfDivs[i].id);
 		 //console.log(getNameSpanOf(listOfDivs[i]).innerHTML);
-	 }
+	 //}
 	 
 	 return listOfDivs;
 }
