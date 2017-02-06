@@ -7,26 +7,19 @@ $votePage  = fopen($pageName."/index.php", 'wa+');
 //$testFile = fopen("testFile.txt", 'wa+');
 //mkdir('testFolder');
 $arrayOfSongNames = json_decode($_POST["songName"], true);
-fwrite($votePage, "
-		
-<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
+fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1' >
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>".$pageName."</title>
-		
 		<link rel='stylesheet' href='http://necolas.github.com/normalize.css/2.0.1/normalize.css'>
 		<link rel='stylesheet' href='../votePage.css'>
-		
 		<style>
-			
 			.ui-draggable-helper
 			{
 				margin-left:-23.1%;
 			}
-			
-			
 			#songListContainer .ui-selected 
 			{
 				position: relative;
@@ -34,7 +27,6 @@ fwrite($votePage, "
 				margin: 10px 10% 13px -47.1%;
 				padding:10px 10px 15px 10px ;
 			}
-			
 			#songListContainer .ui-selecting 
 			{	
 				background-color: #ccccff;
@@ -45,7 +37,6 @@ fwrite($votePage, "
 				margin: 10px 10% 13px -47.1%;
 				padding:10px 10px 15px 10px ;
 			}
-				
 			.highlight 
 			{
 				height:30px;
@@ -58,8 +49,6 @@ fwrite($votePage, "
 			    font-size: 45px;
 			    background-color: lightblue;
 			}
-			
-			
 			@media only screen 
 			and (min-device-width : 320px) 
 			and (max-device-width : 480px)
@@ -67,21 +56,15 @@ fwrite($votePage, "
 				.left{
 				width:5%;
 				}
-			
 				.center{
 					width:90%;
 					padding:0;
 				}
-				
 				.right{
 					width:5%;
 				}
-				
-				
 				.card
 				{
-					
-					
 					background-color:white;
 					height:auto;
 					width:90%;
@@ -91,12 +74,10 @@ fwrite($votePage, "
 					padding: auto ;
 					box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 				}
-				
 				.ui-draggable-helper
 				{
 					margin-left:-43.1%;
 				}
-				
 				.longButton
 				{
 					margin: 0 0px 0 6px;
@@ -109,17 +90,13 @@ fwrite($votePage, "
 					height: 50px;
 				}
 			}
-			
 		</style>
-		
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js' type='text/javascript'></script>
 		<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 		<script src='../jquery.ui.touch-punch.min.js'></script>
 		<script src='../coder.js'></script>
-		<script src='../db_functions.js'></script>
-		
+		<script src='../db_functions.js?1500'></script>
 		<script type='text/javascript'>
-		
 			var tableName = '".$tableName."';
 			var userPw;
 			var subButton;
@@ -135,22 +112,15 @@ fwrite($votePage, "
 			var currentSongDetails;
 			var canVoteAtTime;
 			var updateVoteCountDownInterval;
-			
 			$('document').ready(function(){
-				
 				$('#songListContainer').sortable({placeholder: 'highlight'},
 					{start: function(event, ui)
 					{
-	            		
-	            		
 	            		$(ui.helper).addClass('ui-draggable-helper');
 					}},{helper:'clone'},{ axis: 'y' });
-	
 				getPw(tableName, 'user',setPw);
-	
 				init();
 			});
-	
 			function init(	 subButton,
 							 submitErrorDiv,
 							 tyDiv,
@@ -162,7 +132,6 @@ fwrite($votePage, "
 							 pwIncorrectDiv,
 							 waitToSubmitDiv)
 			{
-				
 				window.subButton = document.getElementById('submitButton');
 				window.submitErrorDiv = document.getElementById('submitError');
 				window.tyDiv = document.getElementById('ty');
@@ -174,13 +143,10 @@ fwrite($votePage, "
 				window.pwIncorrectDiv = document.getElementById('pwIncorrect');
 				window.waitToSubmitDiv = document.getElementById('waitToSubmit');
 			}
-			
-			
 			function setPw(pw)
 			{
 				userPw = pw;
 			}
-				
 			function showList()
 			{
 				hideAllExcept(waitDiv);
@@ -188,24 +154,17 @@ fwrite($votePage, "
 				{
 					localStorage.setItem(tableName,0);
 				}
-				
 				var hasVoted = localStorage.getItem(tableName);
-				
 				if(hasVoted==1)
 				{
-					
 				}
 				else
 				{
-					
 				}
-				
 				if (pwFeild.value == userPw)
 				{
-					
 					if(hasVoted==1)
 					{
-						
 						getCurrentSongDetails();
 						recordVotedAndStartCountDown();
 					}
@@ -225,7 +184,6 @@ fwrite($votePage, "
 				}
 				var hideAllExcept = function() 
 				{
-						
 					subButton.style.display = 'none';
 					submitErrorDiv.style.display = 'none';
 					tyDiv.style.display = 'none';
@@ -241,17 +199,13 @@ fwrite($votePage, "
 						arguments[i].style.display = 'block';
 					}
 				}
-	
 			function listSubmit()
 			{
 				var timePassedSinceLastVote;
-				
 				if(timeOfLastVote = localStorage.getItem(tableName))
 				{
 					var now = (new Date()).getTime();
-					
 					var timePassedSinceLastVote = now - timeOfLastVote;
-					
 					timePassedSinceLastVote = 300001;
 					if(timePassedSinceLastVote<=300000)
 					{
@@ -259,10 +213,7 @@ fwrite($votePage, "
 						var ms = waitTime,
 						   min = (ms/1000/60) << 0,
 						   sec = (ms/1000) % 60;
-						
-						
 						var waitString;
-						
 						if(min>0)
 						{
 							waitString  = 'You\'ll have to wait '+ min + ' minute '+Math.round(sec)+' seconds to vote again.'; 
@@ -271,7 +222,6 @@ fwrite($votePage, "
 						{
 							waitString = 'You\'ll have to wait '+Math.round(sec)+' seconds to vote again.' 
 						}
-						
 						waitToSubmitDiv.innerHTML = waitString;
 						hideAllExcept(waitToSubmitDiv,songListDiv,subButton);
 						return;
@@ -281,13 +231,9 @@ fwrite($votePage, "
 				var list = listChildrenDivs(songContainer);
 				var values = '';
 				var columns = '' ;
-				
 				hideAllExcept(waitDiv);
-				
-				
 				for (j = 0; j < list.length; j++)
 				{
-						
 					columns = columns + '`' + list[j].getAttribute('data-colNum') + '`';
 					values = values + (j+1);
 					if(j!=(list.length-1))
@@ -296,12 +242,41 @@ fwrite($votePage, "
 						columns = columns + ', ';
 					}
 				}
-	
-				
-				
+				var songListContainer = document.getElementById('songListContainer');
+				updateVoteStats(list[0].id);
 				insertToDB(columns, values, tableName,selectionsSubmitted);				
 			}
-			
+			function updateVoteStats(topSong)
+			{
+				var pageNameVar = tableName;
+				var arrayOfSongVoteCountObject;
+				while(pageNameVar.includes('_'))
+				{
+					pageNameVar = pageNameVar.replace('_',' ');
+				}
+				var getJsonRequest = $.getJSON('./voteCounts.json', function( data ) {
+					arrayOfSongVoteCountObject = data;
+					arrayOfSongVoteCountObject.forEach(function(item,index){
+						if(item.songId==topSong)
+						{
+								item.voteCount += 1;
+						}
+					})				
+				});
+				getJsonRequest.done(function(){
+					$.post('../vote_stats.php', {
+						functionName: 'createFile',
+						pageName: pageNameVar,
+						songIds: JSON.stringify(arrayOfSongVoteCountObject)
+					},
+					function(data, status) {
+					});
+				});
+				getJsonRequest.fail(function(err){
+					console.log('failed attempt');
+					console.log(err);
+				});
+			}
 			function getCurrentSongDetails()
 			{
 				var reqeust = 'currentSong.json';
@@ -311,26 +286,19 @@ fwrite($votePage, "
 								async:false,
     						cache: false,
 								success: function(data, status){
- 									
-	 								
-									
 									currentSongDetails = data.currentSongPlaying;
 									if(currentSongDetails.songDuration=='NaN'){
 										currentSongDetails.songDuration = 300;
 									}
 								},
 								error:function(jqXHR, textStatus, errorThrown){
-									
-									
 								}
 							});	
 			}
-	
 			function selectionsSubmitted(response)
 			{
 				if(response==1)
 				{
-					
 					getCurrentSongDetails();
 					localStorage.setItem(tableName, 1);
 					recordVotedAndStartCountDown();
@@ -339,29 +307,27 @@ fwrite($votePage, "
 				{
 					hideAllExcept(submitErrorDiv);
 				}
-				
 			}
-			
 			function recordVotedAndStartCountDown()
 			{
 					hideAllExcept(tyDiv,voteCountDown);	
-					
-					
-					
 					canVoteAtTime = parseFloat(currentSongDetails.songDuration) +parseFloat(currentSongDetails.startTime);					
 					document.getElementById('voteCountDownSongName').innerHTML = currentSongDetails.songName;
-					updateVoteCountDownInterval = setInterval(updateVoteCountDown, 1000);
+					var getTimeCall = $.get('../get_time.php');
+					getTimeCall.done(function(data){
+						console.log(data);
+						var currentTime = data*1000;
+						updateVoteCountDownInterval = setInterval(function(){
+							currentTime = currentTime+1000;
+							updateVoteCountDown(currentTime);
+						}, 1000);
+					});
 			}
-			
-			function updateVoteCountDown()
+			function updateVoteCountDown(incomingCurrentTime)
 			{
-				
 				var minutesString;
-				var currentTime = Date.now()/1000.0;
+				var currentTime = incomingCurrentTime/1000;
 				var timeLeft = (canVoteAtTime-currentTime);
-				
-				
-				
 				if(timeLeft<1)
 				{
 						clearTimeout(updateVoteCountDownInterval);
@@ -370,37 +336,25 @@ fwrite($votePage, "
 				}
 				else
 				{
-						
 						var minutes = Math.floor(timeLeft / 60);
 						var seconds = timeLeft - minutes * 60;
-					
-						if(minutes>0)
+						if(minutes>1)
 						{
 							var minutesString = minutes + ' minutes and ';
 						}
-						else if(minutes=1)
+						else if(minutes==1)
 						{
 							var minutesString = minutes + ' minute and ';
 						}
-						else
+						else if(minutes<=0)
 						{
 							minutesString = '';
 						}
-					
-					
-						
-					  
 						document.getElementById('voteCountDownMin').innerHTML = minutesString;
 						document.getElementById('voteCountDownSec').innerHTML = Math.round(seconds);
 				}
-				
-				
-				
-				
-				
 			}
 		</script>
-					
 	</head>
 	<body>
 		<div class='left'><br></div>
@@ -418,15 +372,12 @@ foreach ($arrayOfSongNames as $value)
 	fwrite($votePage,"
 				<div class='card msg' id='".$value."' style='display:block' data-colNum=".$colNum.">
 					<span id='".$value."_span'".">".decodeIt($value)."</span>
+
 				</div>
-			
 			");
     $colNum++;
-	
 }
 fwrite($votePage,"
-			
-		
 		</div> <!--song list container close -->	
 		<input type='button' value='submit' id='submitButton' onClick='listSubmit()' class='longButton' style='display:none'/>
 		<div id = 'waitToSubmit' class='card msg';></div>
@@ -439,10 +390,8 @@ fwrite($votePage,"
 		<span class='inputTextTitle' style='color:white;float:left;margin:0 0 0 20px'>Asiamchowdhury.com</span>	
 		</div>
 		<div class='right'><br></div>
-		
 		</body>
 </html>		
-				
 		");
 //fwrite($votePage);
 fclose($votePage);

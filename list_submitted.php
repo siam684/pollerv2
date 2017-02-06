@@ -41,7 +41,6 @@ fwrite($htaccess,'
 		
 		');
 fwrite($adminPage,"
-		
 <!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html>
 <head>
@@ -49,10 +48,19 @@ fwrite($adminPage,"
 	<title>".$filename."</title>
 	<template id='songHolderTemplate'>
 	<div id='playlistSongHolder' onclick='alertIt(event)' class='songHolder'>
-		<table style='width:100%;  vertical-align:top;'>
+		<table style='width:100%;vertical-align:top;'>
 			<tr>
-				<td  style='text-align:left;  width:80%;'><span id='songName'></span></td>
-				<td  style='text-align:right; width:20%;vertical-align:top'><span id='songDuration'></span></td>
+				<td  style='text-align:left;width:8%;'>
+					<div id='voteCountDiv' style='border-color:white;border-style:solid;border-width:3px;display:inline-block;padding:10px;border-radius:5px;font-size:1.3em;'>
+						<span id='voteCountSpan'>0</span>
+					</div>
+				</td>
+				<td  style='text-align:left;  width:72%;'>
+					<span id='songName'></span>
+				</td>
+				<td  style='text-align:right; width:20%;vertical-align:top'>
+					<span id='songDuration'></span>
+				</td>
 			</tr>
 		</table>
 		<source id='songSrc' src='' type='audio/mp3'/>
@@ -67,7 +75,6 @@ fwrite($adminPage,"
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 	<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 	<style>
-		
 		#addSongsButton {
 			width: 0.1px;
 			height: 0.1px;
@@ -76,7 +83,6 @@ fwrite($adminPage,"
 			position: absolute;
 			z-index: -1;
 		}
-		
 		.butt {
 			-moz-box-shadow:inset 0px 1px 0px 0px #9fb4f2;
 			-webkit-box-shadow:inset 0px 1px 0px 0px #9fb4f2;
@@ -114,7 +120,6 @@ fwrite($adminPage,"
 		{
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 		}
-		
 		.midcontainer {
 			padding-top:20px;
 			background-color: white;
@@ -122,20 +127,15 @@ fwrite($adminPage,"
 			border-bottom-left-radius:10px;
 			border-bottom-right-radius:10px;
 		}
-		
 		.butonTableCell{
 			height:10px;
 		}
-		
 		html {
 			height: 100%;
 		}
-		
 		body {
-			
 			height: 100%;
 		}
-		
 		.dropzone {
 			width: 100%;
 			height: auto;
@@ -143,7 +143,6 @@ fwrite($adminPage,"
 			border-width: .5px;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 		}
-		
 		.dropzoneflat {
 			text-align: center;
 			vertical-align: middle;
@@ -158,7 +157,6 @@ fwrite($adminPage,"
 			box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.0), 0 0px 0px 0 rgba(0, 0, 0, 0.0);
 			margin-bottom:10px;
 		}
-		
 		.songHolder {
 			font-family: Oswald, sans-serif;
 			width: 100%;
@@ -170,12 +168,10 @@ fwrite($adminPage,"
 			border-width: 2px;
 			border-color: white;
 		}
-		
 		.nowplaying {
 			background-color: #e7522d;
 			color: white;
 		}
-		
 		.nospacing {
 			margin: 0px;
 			padding: 0px;
@@ -184,12 +180,9 @@ fwrite($adminPage,"
 			0px;
 			right: 0px;
 		}
-		
 		.pageTitle{
 			font-size:100px;
 		}
-		
-		
 		input[type=range] {
 			/*removes default webkit styles*/
 			-webkit-appearance: none;
@@ -199,16 +192,13 @@ fwrite($adminPage,"
 			/*required for proper track sizing in FF*/
 			width: 100%;
 		}
-		
 		input[type=range]:active {
 			border-color: rgba(82, 168, 236, 0.8);
 			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 		}
-		
 		input[type=range]:focus {
 			outline: none;
 		}
-		
 		input[type=range]::-webkit-slider-runnable-track {
 			width: 100%;
 			height: 5px;
@@ -216,7 +206,6 @@ fwrite($adminPage,"
 			border: none;
 			border-radius: 10px;
 		}
-		
 		input[type=range]::-webkit-slider-thumb {
 			-webkit-appearance: none;
 			border: none;
@@ -229,15 +218,12 @@ fwrite($adminPage,"
 			cursor: pointer;
 			margin-top: -5px;
 		}
-		
 		input[type=range]::-webkit-slider-thumb:hover {
 			background-position: 50% 50%;
 		}
-		
 		input[type=range]:focus::-webkit-slider-runnable-track {
 			background: #5bc0de;
 		}
-		
 		input[type=range]::-moz-range-track {
 			width: 100%;
 			height: 5px;
@@ -245,7 +231,6 @@ fwrite($adminPage,"
 			border: none;
 			border-radius: 3px;
 		}
-		
 		input[type=range]::-moz-range-thumb {
 			border: none;
 			display: block;
@@ -258,12 +243,10 @@ fwrite($adminPage,"
 			margin-top: -5px;
 		}
 		/*hide the outline behind the border*/
-		
 		input[type=range]:-moz-focusring {
 			outline: 1px solid white;
 			outline-offset: -1px;
 		}
-		
 		input[type=range]::-ms-track {
 			width: 100%;
 			height: 5px;
@@ -273,17 +256,14 @@ fwrite($adminPage,"
 			border-width: 7px 0;
 			color: transparent;
 		}
-		
 		input[type=range]::-ms-fill-lower {
 			background: #5bc0de;
 			border-radius: 10px;
 		}
-		
 		input[type=range]::-ms-fill-upper {
 			background: #5bc0de;
 			border-radius: 10px;
 		}
-		
 		input[type=range]::-ms-thumb {
 			border: none;
 			height: 16px;
@@ -292,7 +272,6 @@ fwrite($adminPage,"
 			border: 1px solid #ddd;
 			background: #fafafa;
 		}
-		
 		.verticalCenterDiv {
 			height: 30px;
 			margin-bottom: 22px;
@@ -304,7 +283,7 @@ fwrite($adminPage,"
 	<script src='../coder.js?1500'></script>
 	<script src='../db_functions.js?1500'></script>
 	<script type='text/javascript'>
-    
+		var persistentVotes;
 		var countOfSongDivs = 0;
 		var tempduration;
 		var tempGlobali;
@@ -318,7 +297,6 @@ fwrite($adminPage,"
 		var dropZoneContainer; 
 		var playerContainer;
 		var pwIncorrectDiv;
-		
 		var adminPw;
 		var lastColumnAdded;
 		var tableName = '".$tableName."';
@@ -335,18 +313,20 @@ fwrite($adminPage,"
 		var mutedImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Media_Controls/mute_filled-25.png';
 		var unmutedImage = 'https://maxcdn.icons8.com/iOS7/PNG/25/Mobile/speaker_filled-25.png';
 		var zero;
-		
 		var websiteAddress = 'www.ASiamChowdhury.com/poller';
 		$('document').ready(function() {
+			persistentVotes = false;
 			document.getElementById('shareText').innerHTML = 'Share the link '+websiteAddress+'/'+tableName+' with people you want voting for the next song to play.';
-			
 			getPw(tableName, 'admin',setPw);
 			var dropZone = document.getElementById('drop_zone');
+			var dropzonemsg = document.getElementById('dropzonemsg');
 			document.getElementById('publish').addEventListener('click', function() {
 				updateVoterList();
 			}, false);
 			dropZone.addEventListener('dragover', handleDragOver, false);
 			dropZone.addEventListener('drop', handleFileSelect, false);
+			dropzonemsg.addEventListener('dragover', handleDragOver, false);
+			dropzonemsg.addEventListener('drop', handleFileSelect, false);
 			playListDiv = document.getElementById(playListDivID);
 			player = document.getElementById('player');
 			playPuaseImage = document.getElementById('playPuaseImage');
@@ -356,7 +336,6 @@ fwrite($adminPage,"
 			seekBar = document.getElementById('seekBar');
 			muteUnmuteContainer = document.getElementById('muteUnmuteContainer');
 			muteUnmuteImage = document.getElementById('muteUnmuteImage');
-					 
 			pwFeild = document.getElementById('pwFeild');
 			loginButton = document.getElementById('loginButton');
 			loginContainer = document.getElementById('loginContainer');
@@ -418,19 +397,15 @@ fwrite($adminPage,"
 					player.muted = true;
 				}
 			});
-			
 			$('#helpSpan').on('click',function(){
 				$(dropzonemsg).toggle();
 			});
-			
       getPollResults();
 		});
-		
 		function setPw(pw)
 		{
 			adminPw = pw;
 		}
-				
 		function showList()
 			{				
 				if (pwFeild.value == adminPw)
@@ -450,7 +425,6 @@ fwrite($adminPage,"
 		{
 			if (event.keyCode == 13) loginButton.click();
 		}
-		
 		function getFormattedTime(sec) 
     {
 			minutes = Math.floor((sec % 3600) / 60);
@@ -467,29 +441,32 @@ fwrite($adminPage,"
 		}
 		function sendCurrentSong() 
     {
-			var startTimeValue = Date.now() / 1000.0;
-			var pageNameVar = tableName;
-				
-			while(pageNameVar.includes('_'))
-			{
-				pageNameVar = pageNameVar.replace('_',' ');
-				console.log(pageNameVar);
-			}
-			
-			if (currentlyPlayingDiv) 
-      {
-				var currentSong = currentlyPlayingDiv.querySelector('#songName').innerHTML;
-				$.post('../SongDuration.php', {
-						functionName: 'setValue',
-						pageName: pageNameVar,
-						songName: currentSong.replace('Now Playing: ', ''),
-						startTime: startTimeValue,
-						songDuration: player.duration - player.currentTime
-					},
-					function(data, status) {
-						//alert(status+ ' '+data);
-					});
-			}
+			var getTimeCall = $.get('../get_time.php');
+			getTimeCall.done(function(data){
+				console.log(data);
+				var currentTime = data*1000;
+				var startTimeValue = currentTime / 1000.0;
+				var pageNameVar = tableName;
+				while(pageNameVar.includes('_'))
+				{
+					pageNameVar = pageNameVar.replace('_',' ');
+					console.log(pageNameVar);
+				}
+				if (currentlyPlayingDiv) 
+				{
+					var currentSong = currentlyPlayingDiv.querySelector('#songName').innerHTML;
+					$.post('../SongDuration.php', {
+							functionName: 'setValue',
+							pageName: pageNameVar,
+							songName: currentSong.replace('Now Playing: ', ''),
+							startTime: startTimeValue,
+							songDuration: player.duration - player.currentTime
+						},
+						function(data, status) {
+							//alert(status+ ' '+data);
+						});
+				}
+			});
 		}
 		function Song(name, src, dur, divId) 
     {
@@ -505,45 +482,49 @@ fwrite($adminPage,"
 		}
 		function getPollResults() 
     {
-			var hr = new XMLHttpRequest();
-			var jsonRankingsObject;
-			var orderResultsArray = new Array();
-			pollResults = new Array();
-			var url = '../db_functions.php';
-			hr.open('POST', url, true);
-			var postValues = 'functionName=getSongRanks&tableName=' + tableName;
-			hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			hr.onreadystatechange = function() 
-      {
-				if (hr.readyState == 4 && hr.status == 200) {
-					jsonRankingsObject = JSON.parse(hr.responseText);
-					$.each(jsonRankingsObject, function(index, position) 
-          {
-						pollResults[position - 1] = listOfSongNames[index];
-					});
-          
-					pollResults.forEach(function(item, index) 
-          {
-						if (item != pollResultsTrackerArray[index]) 
-            {
-							
-							if (hasBeenVotedUp(item, index)) 
-              {
-								console.log(item + 'has gone to position ' + index);
-								putSongInSlot(item, index);
+			if(persistentVotes)
+			{
+				var hr = new XMLHttpRequest();
+				var jsonRankingsObject;
+				var orderResultsArray = new Array();
+				pollResults = new Array();
+				var url = '../db_functions.php';
+				hr.open('POST', url, true);
+				var postValues = 'functionName=getSongRanks&tableName=' + tableName;
+				hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				hr.onreadystatechange = function()
+				{
+					if (hr.readyState == 4 && hr.status == 200)
+					{
+						jsonRankingsObject = JSON.parse(hr.responseText);
+						$.each(jsonRankingsObject, function(index, position)
+						{
+							pollResults[position - 1] = listOfSongNames[index];
+						});
+						pollResults.forEach(function(item, index) 
+						{
+							if (item != pollResultsTrackerArray[index]) 
+							{
+								if (hasBeenVotedUp(item, index)) 
+								{
+									console.log(item + 'has gone to position ' + index);
+									putSongInSlot(item, index);
+								}
+								listDidNotChange = false;
 							}
-							listDidNotChange = false;
-						}
-					});
-					pollResultsTrackerArray = pollResults.slice(0);      
+						});
+						pollResultsTrackerArray = pollResults.slice(0);
+					}
 				}
+				hr.send(postValues);
 			}
-			hr.send(postValues);
+			else
+			{
+			}
 		}
 		/*
 		compare incoming array index value against its previous position using pollresults array as incoming and 
 		pollresultstracker array as previous position
-    
 		incoming song id is the compared against song id's on tracker array
 		*/
 		function hasBeenVotedUp(incomingSongId, incomingSongIndex) 
@@ -580,6 +561,74 @@ fwrite($adminPage,"
 				playListDiv.appendChild(songDiv);
 			});
 		}
+		function updateVoteCounts()
+		{
+			//get the tracking object from ajax call (votecounts.json)
+			//get list of song divs 
+			//while the count on the div is less then the count on the tracker increase the count on the div
+			var arrayOfSongVoteCountObject;
+			var listOfsongDivs;			
+			var getJsonRequest = $.getJSON('./voteCounts.json', function( data ) {
+				arrayOfSongVoteCountObject = data;
+			});
+			getJsonRequest.done(function(){				
+				arrayOfSongVoteCountObject.forEach(function(item,index){
+					var id = encodeIt(item.songId);
+					var highestVotedSongIDFromVoteCounts = id;
+					var matchingDiv = document.getElementById(id);
+					//console.log(item.voteCount+' '+matchingDiv.querySelector('#voteCountSpan').innerHTML);
+					if(item.voteCount>parseInt(matchingDiv.querySelector('#voteCountSpan').innerHTML))
+					{
+								increaseVoteCountonDiv(id,item.voteCount);
+					}
+				});
+				arrayOfSongVoteCountObject.sort(function(a,b){
+					return b.voteCount-a.voteCount;
+				});
+				console.log(arrayOfSongVoteCountObject);
+				indexCount = 0;
+				arrayOfSongVoteCountObject.forEach(function(voteCountObject,index){
+					var tempDiv = document.getElementById(encodeIt(voteCountObject.songId));
+					console.log(tempDiv);
+					if(tempDiv!=currentlyPlayingDiv)
+					{
+						//playListDiv.appendChild(tempDiv);
+						if(voteCountObject.voteCount>0)
+							{
+								putSongInSlot(tempDiv.id,indexCount)
+								indexCount++;
+							}
+					}				
+				});
+			});
+		}
+	  function increaseVoteCountonDiv(divId,count)
+    {
+      var div = document.getElementById(divId);
+      var voteCountDiv = div.querySelector('#voteCountDiv');
+      var voteCountSpan = div.querySelector('#voteCountSpan');
+			console.log(divId)
+			console.log(div);
+			console.log(voteCountDiv);
+			console.log(voteCountSpan);
+			$(voteCountDiv).fadeOut('fast');
+			$(voteCountDiv).fadeIn(function(){
+				voteCountSpan.innerHTML = count;        
+			});     
+    }
+		function clearAllVoteCounts()
+		{
+			var songDivs = listChildrenDivs(playListDiv);
+			arrayOfSongVoteCountObject = new Array();
+			songDivs.forEach(function(songDiv,index){
+				songDiv.querySelector('#voteCountSpan').innerHTML = 0;
+				var tempObject = new Object();
+				tempObject.songId = songDiv.id;
+				tempObject.voteCount = 0;
+				arrayOfSongVoteCountObject.push(tempObject);
+				writeToVoteCountPage(arrayOfSongVoteCountObject,false);
+			});
+		}
 		function updatePlayList() {
 			//remove all divs from playlist except for the now playing one
 			//add divs back in order of pollresults except for now playinging
@@ -599,7 +648,6 @@ fwrite($adminPage,"
     {
 			var list = listChildrenDivs(playListDiv);
 			var data1 = new Array();
-      
 			for (var i = 0; i < list.length; i++) {
 				if(list[i].id=='dropzonemsg')
 				{
@@ -607,48 +655,73 @@ fwrite($adminPage,"
 				}
 				data1.push(list[i].id);
 			}
-			$.ajax({
+ 			$.ajax({
 				type: 'POST',
-				url: '../updateVoteList.php',
-				data: 'tableName=".$tableName."&pageName=' + '".$filename."&' + 'songName=' + JSON.stringify(data1)
+ 				url: '../updateVoteList.php',
+ 				data: 'tableName=".$tableName."&pageName=' + '".$filename."&' + 'songName=' + JSON.stringify(data1)
+ 			});
+			var arrayOfSongVoteCountObject = new Array();
+			data1.forEach(function(item, index){
+				var tempObject = new Object();
+				tempObject.songId = item;
+				tempObject.voteCount = 0;
+				arrayOfSongVoteCountObject.push(tempObject);
 			});
+			writeToVoteCountPage(arrayOfSongVoteCountObject,true);
+		}
+		function writeToVoteCountPage(arrayOfSongVoteCountObject, setInterval)
+		{
+			var pageNameVar = tableName;
+			while(pageNameVar.includes('_'))
+			{
+				pageNameVar = pageNameVar.replace('_',' ');
+				console.log(pageNameVar);
+			}
+			$.post('../vote_stats.php', {
+						functionName: 'createFile',
+						pageName: pageNameVar,
+						songIds: JSON.stringify(arrayOfSongVoteCountObject)
+					},
+					function(data, status) {
+						//alert(status+ ' '+data);
+						console.log('calling updateVoteCounts after creating voteCounte.json')		
+						updateVoteCounts();
+						if(setInterval)
+						{
+							voteCountReadInterval = window.setInterval(function(){updateVoteCounts();},15000);
+						}
+					});
 		}
 		function addColumns(sqlString) 
-    {
+		{
 			var hr = new XMLHttpRequest();
 			var url = '../db_functions.php';
 			hr.open('POST', url, true);
-
+			//console.log(sqlString);
 			var postValues = 'functionName=db_addColumn&tableName=' + tableName + '&columns=' + sqlString;
 			hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			hr.onreadystatechange = function() 
-      {
-        if (hr.readyState == 4 && hr.status == 200) 
-        {
-          //console.log(hr.responseText);
-        }
+			{
+				if (hr.readyState == 4 && hr.status == 200) 
+				{
+				  //console.log(hr.responseText);
+				}
 			}
 			hr.send(postValues);		
 		}
     	/*
-		
 			for first song added to list where divcount = 0
 			alter table add 'song title encoded' varchar(35) first;
 			saved the 'song title encoded' as variable showing it was the last column added
-		
 			for subesquent songs 
 			alter table add 'song title  1 encoded' varchar(35) after 'saved last col added', 
 			add 'song title 2 encoded' varchar(35) after 'song title  1 encoded',.........., 
 			add 'song title n' varchar(35) after 'song title n-1'
-		
 			after each use of the last column added variable update it to the latest column/song name 
 			then use it again
-		
-		
 			f.name().replace('.mp3','');
 			global variable -> var lastColumnAdded;
 			outside for loop var addCulumnSql = '';
-		
 			inside for loop ---------------------------------
 			if(divcount=0)
 			{
@@ -661,11 +734,8 @@ fwrite($adminPage,"
 				addCulumnSql = 'add ' + incomingCol + ' varchar(35) after ' + lastColumnAdded;
 				lastColumnAdded = incomingCol;
 			}
-		
 			after for loop ----------------------------------------------
-		
 			call addCoulmuns passing addColumnSql string 
-		
 			addcolumns makes xmlhttprequest to db_functions passing name of table and sqp string and 
 			function to call which is db_addColumn
 			*/
@@ -683,17 +753,16 @@ fwrite($adminPage,"
 		function handleFileSelect(evt) 
     {
 			dz = document.getElementById('drop_zone');
+			$('#playlistHeader').show();
 			$(dz).removeClass('dropzoneflat');
 			$(dz).addClass('dropzone');
-			
-			var dropzonemsg = dz.querySelector('#dropzonemsg');
-			
+			$(dz).show();
+			var dropzonemsg = document.getElementById('dropzonemsg');
 			if(dropzonemsg)
 			{
 				$(dropzonemsg).hide();
 				$(dropzonemsg).addClass('dropzoneflat');
 			}
-			
 			var files;
 			if (evt instanceof FileList) 
       {
@@ -746,11 +815,10 @@ fwrite($adminPage,"
         {
 					var incomingCol = tempId;
 					var colon = '';
-					if (i!=0) 										
+					if (i!=0)
 					{
 						colon = ',';
 					}
-					
 					addCulumnSql = addCulumnSql + colon + ' ADD `' + countOfSongDivs + '` INT after `' + (countOfSongDivs - 1) + '`';
 					lastColumnAdded = incomingCol;
 				}
@@ -795,13 +863,39 @@ fwrite($adminPage,"
 			var songName = divParent.querySelector('#songName').innerHTML;
 			divParent.querySelector('#songName').innerHTML = 'Now Playing: ' + songName;
 			$(divParent).addClass('nowplaying');
+			divParent.querySelector('#voteCountDiv').style.display = 'none';
       currentlyPlayingDiv = divParent;
 		}
 		function clearNowPlaying() 
     {
 			var songName = currentlyPlayingDiv.querySelector('#songName').innerHTML;
 			currentlyPlayingDiv.querySelector('#songName').innerHTML = songName.replace('Now Playing: ', '');
+			currentlyPlayingDiv.querySelector('#voteCountDiv').style.display = 'inline-block';
+			currentlyPlayingDiv.querySelector('#voteCountSpan').innerHTML = 0;
 			$(currentlyPlayingDiv).removeClass('nowplaying');
+			var arrayOfSongVoteCountObject;
+			var getJsonRequest = $.getJSON('./voteCounts.json', function( data ) {
+				arrayOfSongVoteCountObject = data;
+			});
+			getJsonRequest.done(function(){
+				if(persistentVotes)
+				{
+					arrayOfSongVoteCountObject.forEach(function(voteObject, index){					
+						if(currentlyPlayingDiv.id==voteObject.songId)
+						{
+							console.log('found matching object');
+							console.log(voteObject);
+							arrayOfSongVoteCountObject[index].voteCount = 0;
+							console.log(voteObject);
+						}
+					});
+					writeToVoteCountPage(arrayOfSongVoteCountObject,false);
+				}
+				else
+				{
+					clearAllVoteCounts();
+				}
+			});
     }
 		function loadNextSong() 
     {
@@ -848,8 +942,7 @@ fwrite($adminPage,"
 	</script>
 </head>
 <body>
-	<div class='container' style='padding-top:10px;background-color: rgba(231, 82, 45, 1);height:100%;'>
-		
+	<div class='container' style='padding-top:10px;background-color: rgba(231, 82, 45, 1);height:auto;min-height:100%'>
 				<div class='row'>
 				 <div class='col-lg-1'></div>
 					<div class='col-lg-10 boxshadowed' style='background-color:white;border-top-left-radius:10px;border-top-right-radius:10px;margin-bottom:10px;text-align:center'>
@@ -857,7 +950,6 @@ fwrite($adminPage,"
 					</div>
 					<div class='col-lg-1'></div>		
 				</div>		
-		
 				<div class='row' style='margin-bottom:10px' id='playerContainer'>
 				 <div class='col-lg-1'></div>
 					<div class='col-lg-10 boxshadowed' style='background-color:white;padding-bottom:10px'>
@@ -898,7 +990,6 @@ fwrite($adminPage,"
 								</div>
 							</div>
 						</div>
-						
 						<table style='margin-left:45px'>
 							<tr>
 								<td class='butonTableCell'><input class='butt' type='button' value='Next on playlist' onclick='loadNextSong()' /></td>
@@ -907,18 +998,14 @@ fwrite($adminPage,"
 								<td class='butonTableCell'><label for='addSongsButton' class='butt' style='margin-bottom:0'>Add Music</label></td>
 							</tr>
 						</table>
-						
-						
 					</div>
 					<div class='col-lg-1'></div>		
 			</div>
-		
 		<div class='row'  id='loginContainer'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-10 midcontainer boxshadowed'>
 				<div class='container nospacing'>
 					<div class='row nospacing'>
-						
 						<div style='padding-bottom:20px'>	 <!--style='display: none;'-->				
 							<span style='text-align:left; font-family: Source Sans Pro, sans-serif;color:#E7522D'>Playlist Admin/DJ Password:</span><br>
 							<input type='password' id='pwFeild' class='customText' onkeydown='enterKeyPressed()'/>
@@ -930,7 +1017,6 @@ fwrite($adminPage,"
 			</div>
 			<div class='col-lg-1'></div>
 		</div>			
-				
 		<div class='row'  id='dropZoneContainer'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-10 midcontainer boxshadowed'>
@@ -939,29 +1025,34 @@ fwrite($adminPage,"
 				</div>
 				<div class='container nospacing'>
 					<div class='row nospacing'>
-						<div id='drop_zone' class='dropzoneflat'>
-							<div id='dropzonemsg' style='opacity:.7;padding-top:30px;height:100%'>
-								<div style='margin:0 auto;width:80%;text-align:left; line-height: 200%;'>
-									<ol>
-										<li>Drop MP3 files here to add to playlist.</li>
-										<li>Press publish when your done adding music to setup your voter page.</li>
-										<li id='shareText'>Share the link linkgoeshere with people you want voting for the next song to play.</li>
-									</ol>
-								</div>
-							</div>
-						</div><br>
+							<div id='dropzonemsg' style='opacity:.7;padding-top:30px;height:100%' class='dropzoneflat'>
+									<div  style='margin:0 auto;width:80%;text-align:left; line-height: 200%;' >
+											<ol>
+												<li>Drop MP3 files into here or the playlist section to add  them to playlist.</li>
+												<li>Press publish when your done adding music to setup your voter page.</li>
+												<li id='shareText'>Share the link linkgoeshere with people you want voting for the next song to play.</li>
+											</ol>
+									</div>							
+						</div>
+							<div class='songHolder' style='font-size:1.5em;display:none' id='playlistHeader'>
+								<table style='width:100%;  vertical-align:top;'>
+									<tr>
+										<td  style='text-align:left;  width:8%;'><span>Votes</span></td>
+										<td  style='text-align:left;  width:72%;'><span>Name</span></td>
+										<td  style='text-align:right; width:20%;vertical-align:top'><span>Duration</span></td>
+									</tr>
+								</table>
+							</div>	
+						<div id='drop_zone' class='dropzoneflat' style='display:none'>
+						</div><br>						
 					</div>
-				</div>
+				</div>					
 			</div>
-			<div class='col-lg-1'></div>
-		</div>
+			<div class='col-lg-1'></div>			
+		</div>		
 	</div>
-	
 </body>
 </html>
-		
-		
-
 		");
 fclose($adminPage);
 fclose($voterPage);
