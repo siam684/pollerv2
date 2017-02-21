@@ -108,6 +108,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 			var loginDiv;
 			var pwIncorrectDiv;
 			var waitToSubmitDiv;
+			var instructionDiv;	  
 			var currentSongDetails;
 			var canVoteAtTime;
 			var updateVoteCountDownInterval;
@@ -139,6 +140,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				window.loginDiv = document.getElementById('loginContainer');
 				window.pwIncorrectDiv = document.getElementById('pwIncorrect');
 				window.waitToSubmitDiv = document.getElementById('waitToSubmit');
+				window.instructionDiv = document.getElementById('instructionDiv');													  
 			}
 			function setPw(pw)
 			{
@@ -167,7 +169,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 					}
 					else
 					{
-						hideAllExcept(songListDiv);	
+						hideAllExcept(songListDiv,instructionDiv);	
 					}
 				}
 				else
@@ -190,6 +192,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 					pwIncorrectDiv.style.display = 'none';
 					waitToSubmitDiv.style.display = 'none';
 					voteCountDown.style.display = 'none';
+					instructionDiv.style.display = 'none';					   
 					for(var i = 0; i< arguments.length;i++)
 					{
 						arguments[i].style.display = 'block';
@@ -369,20 +372,25 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				<input type='password' id='pwFeild' class='customText' onkeydown='enterKeyPressed()'/>
 			</div>
 			<input id='loginButton' type='button' value='Login' class='longButton' onclick='showList()' />
+   
+			<div id=instructionDiv class='card msg'>
+				Select the song you want to hear next and if it has enough votes it will play.
+			</div>
+   
 			<div id='songListContainer' style='display:none; padding: 0 0 12px 0;'>");
 $colNum = 0;
 foreach ($arrayOfSongNames as $value) 
 {
 	fwrite($votePage,"
-				<div class='card msg' id='".$value."' style='display:block' data-colNum=".$colNum." onClick='songDivClicked(this)'>
+				<div class='card msg' id='".$value."' style='display:block;cursor: pointer;' data-colNum=".$colNum." onClick='songDivClicked(this)'>
 					<span id='".$value."_span'".">".decodeIt($value)."</span>
 
 				</div>
 			");
     $colNum++;
 }
-fwrite($votePage,"
-		</div> <!--song list container close -->	
+fwrite($votePage,"   
+</div> <!--song list container close -->	
 		<div id = 'waitToSubmit' class='card msg';></div>
 		<div id = 'wait' class='card msg'>Please Wait.</div>		
 		<div id = 'ty' class='card msg'>Thank You!</div>
@@ -394,7 +402,7 @@ fwrite($votePage,"
 		</div>
 		<div class='right'><br></div>
 		</body>
-</html>		
+</html>
 		");
 //fwrite($votePage);
 fclose($votePage);

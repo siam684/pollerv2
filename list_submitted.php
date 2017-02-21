@@ -41,6 +41,7 @@ fwrite($htaccess,'
 		
 		');
 fwrite($adminPage,"
+
 <!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html>
 <head>
@@ -290,6 +291,7 @@ fwrite($adminPage,"
 		var currentlyPlayingDiv;
 		var arrayOfsongs = new Array();
 		var playListDivID = 'drop_zone';
+		var pageNameVar;
 		var playListDiv;		
 		var pwFeild; 
 		var loginButton; 
@@ -315,8 +317,18 @@ fwrite($adminPage,"
 		var zero;
 		var websiteAddress = 'www.ASiamChowdhury.com/poller';
 		$('document').ready(function() {
-			persistentVotes = false;
-			document.getElementById('shareText').innerHTML = 'Share the link '+websiteAddress+'/'+tableName+' with people you want voting for the next song to play.';
+			 
+			pageNameVar = tableName;
+			while(pageNameVar.includes('_'))
+			{
+				pageNameVar = pageNameVar.replace('_',' ');
+				console.log(pageNameVar);
+			}
+			
+			persistentVotes = false;	
+			
+			var link  = websiteAddress+'/'+pageNameVar;
+			document.getElementById('shareText').innerHTML = 'Share the link <a id=\'pageLink\' href=\'http://www.asiamchowdhury.com/poller/'+pageNameVar+'\' target=\'_blank\' style=\'target-new: tab;\'>'+link+'</a> with people you want voting for the next song to play.';
 			getPw(tableName, 'admin',setPw);
 			var dropZone = document.getElementById('drop_zone');
 			var dropzonemsg = document.getElementById('dropzonemsg');
@@ -446,12 +458,6 @@ fwrite($adminPage,"
 				console.log(data);
 				var currentTime = data*1000;
 				var startTimeValue = currentTime / 1000.0;
-				var pageNameVar = tableName;
-				while(pageNameVar.includes('_'))
-				{
-					pageNameVar = pageNameVar.replace('_',' ');
-					console.log(pageNameVar);
-				}
 				if (currentlyPlayingDiv) 
 				{
 					var currentSong = currentlyPlayingDiv.querySelector('#songName').innerHTML;
@@ -655,11 +661,25 @@ fwrite($adminPage,"
 				}
 				data1.push(list[i].id);
 			}
- 			$.ajax({
+			
+			$('#dropZoneContainer').hide();
+			$('#playerContainer').hide();
+			$('#waitDiv').show();
+			
+ 			var publishRequest = $.ajax({
 				type: 'POST',
  				url: '../updateVoteList.php',
  				data: 'tableName=".$tableName."&pageName=' + '".$filename."&' + 'songName=' + JSON.stringify(data1)
  			});
+			
+			publishRequest.done(function(){
+				
+				$('#dropZoneContainer').show();
+				$('#playerContainer').show();
+				$('#waitDiv').hide();
+				document.getElementById('pageLink').click(); 
+			});
+			
 			var arrayOfSongVoteCountObject = new Array();
 			data1.forEach(function(item, index){
 				var tempObject = new Object();
@@ -671,12 +691,6 @@ fwrite($adminPage,"
 		}
 		function writeToVoteCountPage(arrayOfSongVoteCountObject, setInterval)
 		{
-			var pageNameVar = tableName;
-			while(pageNameVar.includes('_'))
-			{
-				pageNameVar = pageNameVar.replace('_',' ');
-				console.log(pageNameVar);
-			}
 			$.post('../vote_stats.php', {
 						functionName: 'createFile',
 						pageName: pageNameVar,
@@ -1016,7 +1030,14 @@ fwrite($adminPage,"
 				</div>
 			</div>
 			<div class='col-lg-1'></div>
-		</div>			
+		</div>
+		<div id = 'waitDiv' class='row' style='display:none'>
+			<div class='col-lg-1'></div>
+			<div class='col-lg-10 midcontainer boxshadowed'>
+				<div style='text-align:center;margin-bottom:2%;	font-family: Bungee, cursive;color:#E7522D;font-size:2em;'>Please Wait.</div>	
+			</div>
+			<div class='col-lg-1'></div>
+		</div>
 		<div class='row'  id='dropZoneContainer'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-10 midcontainer boxshadowed'>
@@ -1030,7 +1051,7 @@ fwrite($adminPage,"
 											<ol>
 												<li>Drop MP3 files into here or the playlist section to add  them to playlist.</li>
 												<li>Press publish when your done adding music to setup your voter page.</li>
-												<li id='shareText'>Share the link linkgoeshere with people you want voting for the next song to play.</li>
+												<li id='shareText'></li>
 											</ol>
 									</div>							
 						</div>
