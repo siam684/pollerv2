@@ -93,13 +93,12 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 		</style>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js' type='text/javascript'></script>
 		<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
-		<script src='../jquery.ui.touch-punch.min.js'></script>
+		<!--<script src='../jquery.ui.touch-punch.min.js'></script>-->
 		<script src='../coder.js'></script>
 		<script src='../db_functions.js?1500'></script>
 		<script type='text/javascript'>
 			var tableName = '".$tableName."';
 			var userPw;
-			var subButton;
 			var submitErrorDiv;
 			var tyDiv;
 			var waitDiv;
@@ -121,8 +120,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				getPw(tableName, 'user',setPw);
 				init();
 			});
-			function init(	 subButton,
-							 submitErrorDiv,
+			function init(submitErrorDiv,
 							 tyDiv,
 							 waitDiv,
 							 loginButton, 
@@ -132,7 +130,6 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 							 pwIncorrectDiv,
 							 waitToSubmitDiv)
 			{
-				window.subButton = document.getElementById('submitButton');
 				window.submitErrorDiv = document.getElementById('submitError');
 				window.tyDiv = document.getElementById('ty');
 				window.waitDiv = document.getElementById('wait'); 
@@ -170,7 +167,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 					}
 					else
 					{
-						hideAllExcept(songListDiv, subButton);	
+						hideAllExcept(songListDiv);	
 					}
 				}
 				else
@@ -184,7 +181,6 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				}
 				var hideAllExcept = function() 
 				{
-					subButton.style.display = 'none';
 					submitErrorDiv.style.display = 'none';
 					tyDiv.style.display = 'none';
 					waitDiv.style.display = 'none';
@@ -223,7 +219,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 							waitString = 'You\'ll have to wait '+Math.round(sec)+' seconds to vote again.' 
 						}
 						waitToSubmitDiv.innerHTML = waitString;
-						hideAllExcept(waitToSubmitDiv,songListDiv,subButton);
+						hideAllExcept(waitToSubmitDiv,songListDiv);
 						return;
 					}
 				}
@@ -246,6 +242,14 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				updateVoteStats(list[0].id);
 				insertToDB(columns, values, tableName,selectionsSubmitted);				
 			}
+			
+			function songDivClicked(div)
+			{
+				console.log(div);
+				$(songListDiv).prepend(div);
+				listSubmit();
+			}
+			
 			function updateVoteStats(topSong)
 			{
 				var pageNameVar = tableName;
@@ -332,7 +336,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				{
 						clearTimeout(updateVoteCountDownInterval);
 					  localStorage.setItem(tableName,0);
-					  hideAllExcept(songListDiv,submitButton);
+					  hideAllExcept(songListDiv);
 				}
 				else
 				{
@@ -370,7 +374,7 @@ $colNum = 0;
 foreach ($arrayOfSongNames as $value) 
 {
 	fwrite($votePage,"
-				<div class='card msg' id='".$value."' style='display:block' data-colNum=".$colNum.">
+				<div class='card msg' id='".$value."' style='display:block' data-colNum=".$colNum." onClick='songDivClicked(this)'>
 					<span id='".$value."_span'".">".decodeIt($value)."</span>
 
 				</div>
@@ -379,7 +383,6 @@ foreach ($arrayOfSongNames as $value)
 }
 fwrite($votePage,"
 		</div> <!--song list container close -->	
-		<input type='button' value='submit' id='submitButton' onClick='listSubmit()' class='longButton' style='display:none'/>
 		<div id = 'waitToSubmit' class='card msg';></div>
 		<div id = 'wait' class='card msg'>Please Wait.</div>		
 		<div id = 'ty' class='card msg'>Thank You!</div>
