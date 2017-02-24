@@ -228,22 +228,22 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 				}
 				var songContainer = document.getElementById('songListContainer');
 				var list = listChildrenDivs(songContainer);
-				var values = '';
-				var columns = '' ;
+// 				var values = '';
+// 				var columns = '' ;
 				hideAllExcept(waitDiv);
-				for (j = 0; j < list.length; j++)
-				{
-					columns = columns + '`' + list[j].getAttribute('data-colNum') + '`';
-					values = values + (j+1);
-					if(j!=(list.length-1))
-					{
-						values = values + ', ';
-						columns = columns + ', ';
-					}
-				}
+// 				for (j = 0; j < list.length; j++)
+// 				{
+// 					columns = columns + '`' + list[j].getAttribute('data-colNum') + '`';
+// 					values = values + (j+1);
+// 					if(j!=(list.length-1))
+// 					{
+// 						values = values + ', ';
+// 						columns = columns + ', ';
+// 					}
+// 				}
 				var songListContainer = document.getElementById('songListContainer');
 				updateVoteStats(list[0].id);
-				insertToDB(columns, values, tableName,selectionsSubmitted);				
+// 				insertToDB(columns, values, tableName,selectionsSubmitted);				
 			}
 			
 			function songDivClicked(div)
@@ -277,6 +277,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 						songIds: JSON.stringify(arrayOfSongVoteCountObject)
 					},
 					function(data, status) {
+						selectionsSubmitted(1);
 					});
 				});
 				getJsonRequest.fail(function(err){
