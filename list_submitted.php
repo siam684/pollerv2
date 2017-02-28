@@ -706,23 +706,23 @@ fwrite($adminPage,"
 						}
 					});
 		}
-		function addColumns(sqlString) 
-		{
-			var hr = new XMLHttpRequest();
-			var url = '../db_functions.php';
-			hr.open('POST', url, true);
-			//console.log(sqlString);
-			var postValues = 'functionName=db_addColumn&tableName=' + tableName + '&columns=' + sqlString;
-			hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			hr.onreadystatechange = function() 
-			{
-				if (hr.readyState == 4 && hr.status == 200) 
-				{
-				  //console.log(hr.responseText);
-				}
-			}
-			hr.send(postValues);		
-		}
+// 		function addColumns(sqlString) 
+// 		{
+// 			var hr = new XMLHttpRequest();
+// 			var url = '../db_functions.php';
+// 			hr.open('POST', url, true);
+// 			//console.log(sqlString);
+// 			var postValues = 'functionName=db_addColumn&tableName=' + tableName + '&columns=' + sqlString;
+// 			hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+// 			hr.onreadystatechange = function() 
+// 			{
+// 				if (hr.readyState == 4 && hr.status == 200) 
+// 				{
+// 				  //console.log(hr.responseText);
+// 				}
+// 			}
+// 			hr.send(postValues);		
+// 		}
     	/*
 			for first song added to list where divcount = 0
 			alter table add 'song title encoded' varchar(35) first;
@@ -788,7 +788,7 @@ fwrite($adminPage,"
 				evt.preventDefault();
 				files = evt.dataTransfer.files;
 			}
-			var addCulumnSql = '';
+			//var addCulumnSql = '';
 			for (var i = 0, f; f = files[i]; i++) 
       {
 				console.log(f.type);
@@ -819,7 +819,7 @@ fwrite($adminPage,"
 				if (countOfSongDivs == 0) 
         {
 					lastColumnAdded = tempId;
-					addCulumnSql = 'ADD `' + countOfSongDivs + '` INT FIRST';
+// 					addCulumnSql = 'ADD `' + countOfSongDivs + '` INT FIRST';
 					document.getElementById('mp3Source').src = blobsrc;
 					var audio = document.getElementById('player');
 					audio.load();
@@ -828,19 +828,19 @@ fwrite($adminPage,"
         else 
         {
 					var incomingCol = tempId;
-					var colon = '';
-					if (i!=0)
-					{
-						colon = ',';
-					}
-					addCulumnSql = addCulumnSql + colon + ' ADD `' + countOfSongDivs + '` INT after `' + (countOfSongDivs - 1) + '`';
+// 					var colon = '';
+// 					if (i!=0)
+// 					{
+// 						colon = ',';
+// 					}
+// 					addCulumnSql = addCulumnSql + colon + ' ADD `' + countOfSongDivs + '` INT after `' + (countOfSongDivs - 1) + '`';
 					lastColumnAdded = incomingCol;
 				}
 				updateDuration(f.name, blobsrc, tempId);
 				countOfSongDivs++;
 			}
 			pollResultsTrackerArray = listOfSongNames.slice(0);
-			addColumns(addCulumnSql);
+// 			addColumns(addCulumnSql);
 		}
 		function updateDuration(name, src, divname) 
     {
