@@ -13,7 +13,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 		<meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1' >
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>".$pageName."</title>
-		<link rel='stylesheet' href='http://necolas.github.com/normalize.css/2.0.1/normalize.css'>
+		<link rel='stylesheet' href='https://necolas.github.com/normalize.css/2.0.1/normalize.css'>
 		<link rel='stylesheet' href='../votePage.css'>
 		<style>
 			.ui-draggable-helper
@@ -92,7 +92,7 @@ fwrite($votePage, "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN
 			}
 		</style>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js' type='text/javascript'></script>
-		<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
+		<script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 		<!--<script src='../jquery.ui.touch-punch.min.js'></script>-->
 		<script src='../coder.js'></script>
 		<script src='../db_functions.js?1500'></script>
@@ -390,7 +390,7 @@ foreach ($arrayOfSongNames as $value)
 			");
     $colNum++;
 }
-fwrite($votePage,"   
+fwrite($votePage," 
 </div> <!--song list container close -->	
 		<div id = 'waitToSubmit' class='card msg';></div>
 		<div id = 'wait' class='card msg'>Please Wait.</div>		
@@ -404,6 +404,7 @@ fwrite($votePage,"
 		<div class='right'><br></div>
 		</body>
 </html>
+  
 		");
 //fwrite($votePage);
 fclose($votePage);

@@ -19,7 +19,7 @@ $adminPage = fopen($filename."/player.php", 'wa+');
 $voterPage = fopen($filename."/index.php", 'wa+');
 $adminPageLog = fopen($filename."/log.txt", 'a+');
 $htaccess = fopen($filename.'/.htaccess','wa+');
-fwrite($htaccess,'
+fwrite($htaccess,'	
 	Options +FollowSymlinks -MultiViews +Indexes
 	RewriteEngine On
 	
@@ -36,11 +36,19 @@ fwrite($htaccess,'
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^([^\.]+)$ $1.html [NC,L]
+	
+	
+	RewriteCond %{HTTPS} !=on
+ 	RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+		
 	DirectoryIndex index.html
 	DirectoryIndex index.php
+
 		
 		');
 fwrite($adminPage,"
+
+
 
 <!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html>
@@ -279,7 +287,7 @@ fwrite($adminPage,"
 		}
 	</style>
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js' type='text/javascript'></script>
-	<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
+	<script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 	<script src='../coder.js?1500'></script>
 	<script src='../db_functions.js?1500'></script>
@@ -324,10 +332,10 @@ fwrite($adminPage,"
 				pageNameVar = pageNameVar.replace('_',' ');
 				console.log(pageNameVar);
 			}
-			
+			pageNameVar = encodeURI(pageNameVar);
 			persistentVotes = false;	
 			
-			var link  = websiteAddress+'/'+pageNameVar;
+			var link  = websiteAddress+'/'+pageNameVar;			
 			document.getElementById('shareText').innerHTML = 'Share the link <a id=\'pageLink\' href=\'http://www.asiamchowdhury.com/poller/'+pageNameVar+'\' target=\'_blank\' style=\'target-new: tab;\'>'+link+'</a> with people you want voting for the next song to play.';
 			getPw(tableName, 'admin',setPw);
 			var dropZone = document.getElementById('drop_zone');
@@ -969,7 +977,7 @@ fwrite($adminPage,"
 					<div class='col-lg-10 boxshadowed' style='background-color:white;padding-bottom:10px'>
 						<div class='row nospacing' style='padding-left:40px'>
 							<audio id='player'>
-										<source id='mp3Source' type='audio/mp3' src='http://www.flashkit.com/imagesvr_ce/flashkit/soundfx/Interfaces/Blips/Metallic-Richard_-7878/Metallic-Richard_-7878_hifi.mp3'/>
+										<source id='mp3Source' type='audio/mp3' src='../Metallic-Richard_-7878_hifi.mp3'/>
 										Your browser does not support the audio element.
 								</audio><br>
 							<div class='container nospacing'>
@@ -1073,7 +1081,7 @@ fwrite($adminPage,"
 		</div>		
 	</div>
 </body>
-</html>
+</html>  
 		");
 fclose($adminPage);
 fclose($voterPage);
